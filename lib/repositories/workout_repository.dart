@@ -11,8 +11,8 @@ class WorkoutRepository {
 
   WorkoutRepository(this.store);
 
-  Future<Workout> createWorkout(DateTime date, List<WorkoutSet> sets) async {
-    final workout = Workout(date: date);
+  Future<Workout> createWorkout(List<WorkoutSet> sets) async {
+    final workout = Workout(date: DateTime.now());
 
     final workoutBox = store.box<Workout>();
     workoutBox.put(workout);

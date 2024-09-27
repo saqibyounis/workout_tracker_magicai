@@ -44,6 +44,9 @@ dev_dependencies:
   # For mock testing
   bloc_test: ^9.1.1
   mocktail: ^1.0.4
+  mockito: ^5.0.0
+
+
   # For DI
   injectable_generator: ^2.1.3
 
