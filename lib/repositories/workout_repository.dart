@@ -1,16 +1,18 @@
+import 'package:injectable/injectable.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../models/workout_model.dart';
 import '../models/workout_set_model.dart';
 import '../objectbox.g.dart';
 
+@injectable
 class WorkoutRepository {
   final Store store;
 
   WorkoutRepository(this.store);
 
-  Future<Workout> createWorkout(DateTime date, List<WorkoutSet> sets) async {
-    final workout = Workout(date: date);
+  Future<Workout> createWorkout(List<WorkoutSet> sets) async {
+    final workout = Workout(date: DateTime.now());
 
     final workoutBox = store.box<Workout>();
     workoutBox.put(workout);

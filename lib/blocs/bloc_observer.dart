@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable()
 class WorkoutAppBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
