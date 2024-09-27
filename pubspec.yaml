@@ -1,0 +1,45 @@
+name: workout_tracker_magicai
+description: SENIOR FLUTTER DEVELOPER TEST
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_bloc: ^8.1.1
+  bloc: ^8.1.1
+
+  # Freezed for immutability and union types
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # Flutter basics
+  cupertino_icons: ^1.0.5
+
+  # Local storage for saving workouts
+  objectbox: ^4.0.2
+
+  # Form validation
+  flutter_form_builder: ^9.4.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Freezed code generation
+  build_runner: ^2.4.12
+  freezed: ^2.5.7
+  json_serializable: ^6.6.1
+  objectbox_generator: ^4.0.2
+
+  # For mock testing
+  bloc_test: ^9.1.1
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true
