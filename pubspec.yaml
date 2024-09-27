@@ -26,6 +26,10 @@ dependencies:
   # Form validation
   flutter_form_builder: ^9.4.1
 
+  # DI
+  get_it: ^7.2.0
+  injectable: ^2.4.4
+
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +44,9 @@ dev_dependencies:
   # For mock testing
   bloc_test: ^9.1.1
   mocktail: ^1.0.4
+  # For DI
+  injectable_generator: ^2.1.3
+
 
 flutter:
   uses-material-design: true
