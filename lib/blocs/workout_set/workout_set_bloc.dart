@@ -14,7 +14,7 @@ class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
   final int workoutId;
 
   WorkoutSetBloc({required this.workoutRepository, required this.workoutId})
-      : super(const WorkoutSetState.initial()) {
+      : super(const WorkoutSetState(isLoading: true)) {
     on<AddSet>(_onAddSet);
     on<RemoveSet>(_onRemoveSet);
     on<UpdateSet>(_onUpdateSet);
@@ -24,70 +24,70 @@ class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
   // Load sets for a specific workout
   Future<void> _onLoadSetsForWorkout(
       LoadSetsForWorkout event, Emitter<WorkoutSetState> emit) async {
-    emit(const WorkoutSetState.loading());
     try {
       final workout = await workoutRepository.getWorkoutById(event.workoutId);
       if (workout != null) {
-        emit(WorkoutSetState.loaded(workout));
+        emit(state.copyWith(isLoading: false, workout: workout));
       } else {
-        emit(const WorkoutSetState.error('Workout not found'));
+        emit(state.copyWith(errorMessage: 'Workout not found'));
       }
     } catch (e) {
-      emit(WorkoutSetState.error(
-          'Failed to load workout sets: ${e.toString()}'));
+      emit(state.copyWith(errorMessage: 'Failed to add set: ${e.toString()}'));
     }
   }
 
   // Add a set to the workout
   Future<void> _onAddSet(AddSet event, Emitter<WorkoutSetState> emit) async {
-    emit(const WorkoutSetState.loading());
     try {
-      final workout = await workoutRepository.getWorkoutById(event.workoutId);
+      Workout? workout =
+          await workoutRepository.getWorkoutById(event.workoutId);
       if (workout != null) {
         event.workoutSet.workout.target = workout;
         workout.sets.add(event.workoutSet);
-        await workoutRepository.updateWorkout(workout);
-        emit(WorkoutSetState.loaded(workout));
+        await workoutRepository.updateWorkout(workout!);
+        workout = await workoutRepository.getWorkoutById(event.workoutId);
+        emit(state.copyWith(workout: workout));
       } else {
-        emit(const WorkoutSetState.error('Workout not found'));
+        emit(state.copyWith(errorMessage: 'Workout not found'));
       }
     } catch (e) {
-      emit(WorkoutSetState.error('Failed to add set: ${e.toString()}'));
+      emit(state.copyWith(errorMessage: 'Failed to add set: ${e.toString()}'));
     }
   }
 
   // Remove a set from the workout
   Future<void> _onRemoveSet(
       RemoveSet event, Emitter<WorkoutSetState> emit) async {
-    emit(const WorkoutSetState.loading());
     try {
-      final workout = await workoutRepository.getWorkoutById(event.workoutId);
+      Workout? workout =
+          await workoutRepository.getWorkoutById(event.workoutId);
       if (workout != null) {
         workout.sets.removeWhere((set) => set.id == event.setId);
         await workoutRepository.deleteWorkoutSet(event.setId);
-        emit(WorkoutSetState.loaded(workout));
+        workout = await workoutRepository.getWorkoutById(event.workoutId);
+        emit(state.copyWith(workout: workout));
       } else {
-        emit(const WorkoutSetState.error('Workout not found'));
+        emit(state.copyWith(errorMessage: 'Workout not found'));
       }
     } catch (e) {
-      emit(WorkoutSetState.error('Failed to remove set: ${e.toString()}'));
+      emit(state.copyWith(errorMessage: 'Failed to add set: ${e.toString()}'));
     }
   }
 
   // Update a set in the workout
   Future<void> _onUpdateSet(
       UpdateSet event, Emitter<WorkoutSetState> emit) async {
-    emit(const WorkoutSetState.loading());
     try {
       await workoutRepository.updateWorkoutSet(event.workoutSet);
-      final workout = await workoutRepository.getWorkoutById(workoutId);
+      Workout? workout = await workoutRepository.getWorkoutById(workoutId);
       if (workout != null) {
-        emit(WorkoutSetState.loaded(workout));
+        workout.setstatus(WorkoutStatus.inProgress);
+        workoutRepository.updateWorkout(workout);
       } else {
-        emit(const WorkoutSetState.error('Workout not found'));
+        emit(state.copyWith(errorMessage: 'Workout not found'));
       }
     } catch (e) {
-      emit(WorkoutSetState.error('Failed to update set: ${e.toString()}'));
+      emit(state.copyWith(errorMessage: 'Failed to add set: ${e.toString()}'));
     }
   }
 }

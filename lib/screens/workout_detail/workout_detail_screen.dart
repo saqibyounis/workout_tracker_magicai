@@ -1,11 +1,12 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_tracker_magicai/blocs/workout/workout_bloc.dart';
 import 'package:workout_tracker_magicai/blocs/workout_set/workout_set_bloc.dart';
 import 'package:workout_tracker_magicai/models/workout_model.dart';
 import 'package:workout_tracker_magicai/models/workout_set_model.dart';
-import 'package:workout_tracker_magicai/screens/workout_detail/workout_set_card.dart';
+import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_set_card.dart';
 
 import '../../di/di_config.dart';
 import '../../repositories/workout_repository.dart';
@@ -38,64 +39,70 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Workout Tracker'),
-      ),
-      body: BlocProvider(
-        create: (context) => WorkoutSetBloc(
-            workoutRepository: getIt<WorkoutRepository>(),
-            workoutId: widget.workoutId)
-          ..add(LoadSetsForWorkout(widget.workoutId)),
-        child: BlocBuilder<WorkoutSetBloc, WorkoutSetState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              loading: () => SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(),
-              ),
-              initial: () => SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(),
-              ),
-              loaded: (workout) => _buildContentWidget(context, workout),
-              orElse: () {
-                return Text('Error loading data!');
-              },
+    return BlocProvider(
+      create: (context) => WorkoutSetBloc(
+          workoutRepository: getIt<WorkoutRepository>(),
+          workoutId: widget.workoutId)
+        ..add(LoadSetsForWorkout(widget.workoutId)),
+      child: BlocBuilder<WorkoutSetBloc, WorkoutSetState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          },
-        ),
+          }
+
+          if (state.errorMessage != null) {
+            return Center(
+              child: Text('Error loading data!'),
+            );
+          }
+
+          return _buildContentWidget(
+              context, state.workout ?? Workout(date: DateTime.now()));
+        },
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context, Workout workout) {
+    return AppBar(
+      title: Text('Workout Details'),
+      actions: [
+        IconButton(
+            onPressed: () => _onAddSetPressed(context, workout),
+            icon: Icon(CupertinoIcons.add))
+      ],
     );
   }
 
   Widget _buildContentWidget(BuildContext context, Workout workout) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(context, workout),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Workout Sets',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: workout.sets.length,
-                itemBuilder: (context, index) {
-                  return WorkoutSetCard(
-                    workoutSet: workout.sets[index],
-                    exercises: exercises,
-                    onRemove: () => _removeSetPressed(context, index, workout),
-                    workoutId: workout.id,
-                  );
-                },
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 60),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: workout.sets.length,
+                  reverse: true,
+                  itemBuilder: (context, index) {
+                    return WorkoutSetCard(
+                      workoutSet: workout.sets[index],
+                      exercises: exercises,
+                      onRemove: () =>
+                          _removeSetPressed(context, index, workout),
+                      workoutId: workout.id,
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomSheet: _buildActionButtons(context, workout),
@@ -103,32 +110,35 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   }
 
   Widget _buildActionButtons(BuildContext context, Workout workout) {
-    return SafeArea(
-      child: Container(
-        height: 120,
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
-              onPressed: () => _onAddSetPressed(context, workout),
-              child: Text('Add Set'),
-            ),
-            ElevatedButton(
-              onPressed: () => _onFinishPressed(context, workout),
-              child: Text('Finish'),
-            ),
-          ],
+    return Container(
+      width: double.infinity,
+      color: Colors.transparent,
+      height: 80, // F
+      padding: EdgeInsets.symmetric(
+          vertical: 16.0, horizontal: 16.0), // ull width button
+      child: TextButton(
+        onPressed: () {
+          // Action on button press
+          print('Workout finished');
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+        ),
+        child: Text(
+          'Finish',
+          style: Theme.of(context)
+              .textTheme
+              .headlineSmall!
+              .copyWith(color: Colors.white), // Text size
         ),
       ),
     );
   }
 
   void _onFinishPressed(BuildContext context, Workout workout) {
-    workout.status = WorkoutStatus.finished;
+    workout.setstatus(WorkoutStatus.finished);
     context.read<WorkoutBloc>().add((UpdateWorkout(workout)));
-    //Need to popup
+    context.router.popForced();
   }
 
   void _onAddSetPressed(BuildContext context, Workout workout) {

@@ -60,10 +60,22 @@ class WorkoutSetCard extends StatelessWidget {
               },
             ),
             SizedBox(height: 10),
-            ElevatedButton(
+            TextButton(
               onPressed: onRemove,
-              child: Text('Remove Set'),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: Text(
+                'Remove',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Colors.white),
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red, // Red background color
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(8.0), // 4px rounded corners
+                ),
+              ),
             ),
           ],
         ),

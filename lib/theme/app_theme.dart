@@ -45,12 +45,15 @@ class AppTheme {
       ),
       appBarTheme: AppBarTheme(
         color: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
+      bottomSheetTheme: BottomSheetThemeData(
+          elevation: 2.0, backgroundColor: Colors.transparent),
     );
   }
 
@@ -99,12 +102,15 @@ class AppTheme {
       ),
       appBarTheme: AppBarTheme(
         color: Colors.black, // AppBar color for dark theme
+        iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ), // AppBar title text
       ),
+      bottomSheetTheme:
+          BottomSheetThemeData(backgroundColor: Colors.transparent),
     );
   }
 }

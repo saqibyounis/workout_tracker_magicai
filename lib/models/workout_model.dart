@@ -18,13 +18,15 @@ class Workout {
   @Backlink()
   final ToMany<WorkoutSet> sets = ToMany<WorkoutSet>();
 
-  int _status = WorkoutStatus.inProgress.index;
+  int status = 0;
 
-  Workout({this.id = 0, required this.date, status = WorkoutStatus.inProgress});
+  Workout({this.id = 0, required this.date, this.status = 0});
 
-  WorkoutStatus get status => WorkoutStatus.values[_status];
+  // Get the enum from the stored int
+  WorkoutStatus getStatus() => WorkoutStatus.values[status];
 
-  set status(WorkoutStatus status) {
-    _status = status.index;
+  // Set the enum and store its index
+  void setstatus(WorkoutStatus statusEnum) {
+    status = statusEnum.index;
   }
 }

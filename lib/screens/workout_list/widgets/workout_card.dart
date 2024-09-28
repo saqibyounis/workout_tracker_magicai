@@ -12,7 +12,7 @@ class WorkoutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat.yMMMd().format(workout.date);
-    final isFinished = workout.status == WorkoutStatus.finished;
+    final isFinished = workout.getStatus() == WorkoutStatus.finished;
 
     return Card(
       elevation: 0.2,
