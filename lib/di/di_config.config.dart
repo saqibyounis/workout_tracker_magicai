@@ -12,6 +12,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:workout_tracker_magicai/blocs/app/app_bloc.dart' as _i445;
 import 'package:workout_tracker_magicai/blocs/bloc_observer.dart' as _i241;
+import 'package:workout_tracker_magicai/blocs/workout/workout_bloc.dart'
+    as _i57;
 import 'package:workout_tracker_magicai/repositories/workout_repository.dart'
     as _i279;
 import 'package:workout_tracker_magicai/routes/app_router.dart' as _i1060;
@@ -29,6 +31,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i279.WorkoutRepository>(() => _i279.WorkoutRepository());
     gh.factory<_i445.AppBloc>(() => _i445.AppBloc());
+    gh.factory<_i57.WorkoutBloc>(() => _i57.WorkoutBloc());
     gh.factory<_i241.WorkoutAppBlocObserver>(
         () => _i241.WorkoutAppBlocObserver());
     gh.factory<_i1060.AppRouter>(() => _i1060.AppRouter());

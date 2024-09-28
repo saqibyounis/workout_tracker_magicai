@@ -18,26 +18,26 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$WorkoutEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadWorkouts,
+    required TResult Function(DateTime dateTime) loadWorkouts,
     required TResult Function(Workout workout) addWorkout,
     required TResult Function(Workout workout) updateWorkout,
-    required TResult Function(int id) deleteWorkout,
+    required TResult Function(Workout workout) deleteWorkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadWorkouts,
+    TResult? Function(DateTime dateTime)? loadWorkouts,
     TResult? Function(Workout workout)? addWorkout,
     TResult? Function(Workout workout)? updateWorkout,
-    TResult? Function(int id)? deleteWorkout,
+    TResult? Function(Workout workout)? deleteWorkout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadWorkouts,
+    TResult Function(DateTime dateTime)? loadWorkouts,
     TResult Function(Workout workout)? addWorkout,
     TResult Function(Workout workout)? updateWorkout,
-    TResult Function(int id)? deleteWorkout,
+    TResult Function(Workout workout)? deleteWorkout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -94,6 +94,8 @@ abstract class _$$LoadWorkoutsImplCopyWith<$Res> {
   factory _$$LoadWorkoutsImplCopyWith(
           _$LoadWorkoutsImpl value, $Res Function(_$LoadWorkoutsImpl) then) =
       __$$LoadWorkoutsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime dateTime});
 }
 
 /// @nodoc
@@ -106,60 +108,86 @@ class __$$LoadWorkoutsImplCopyWithImpl<$Res>
 
   /// Create a copy of WorkoutEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dateTime = null,
+  }) {
+    return _then(_$LoadWorkoutsImpl(
+      null == dateTime
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadWorkoutsImpl implements LoadWorkouts {
-  const _$LoadWorkoutsImpl();
+  const _$LoadWorkoutsImpl(this.dateTime);
+
+  @override
+  final DateTime dateTime;
 
   @override
   String toString() {
-    return 'WorkoutEvent.loadWorkouts()';
+    return 'WorkoutEvent.loadWorkouts(dateTime: $dateTime)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadWorkoutsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadWorkoutsImpl &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, dateTime);
+
+  /// Create a copy of WorkoutEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadWorkoutsImplCopyWith<_$LoadWorkoutsImpl> get copyWith =>
+      __$$LoadWorkoutsImplCopyWithImpl<_$LoadWorkoutsImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadWorkouts,
+    required TResult Function(DateTime dateTime) loadWorkouts,
     required TResult Function(Workout workout) addWorkout,
     required TResult Function(Workout workout) updateWorkout,
-    required TResult Function(int id) deleteWorkout,
+    required TResult Function(Workout workout) deleteWorkout,
   }) {
-    return loadWorkouts();
+    return loadWorkouts(dateTime);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadWorkouts,
+    TResult? Function(DateTime dateTime)? loadWorkouts,
     TResult? Function(Workout workout)? addWorkout,
     TResult? Function(Workout workout)? updateWorkout,
-    TResult? Function(int id)? deleteWorkout,
+    TResult? Function(Workout workout)? deleteWorkout,
   }) {
-    return loadWorkouts?.call();
+    return loadWorkouts?.call(dateTime);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadWorkouts,
+    TResult Function(DateTime dateTime)? loadWorkouts,
     TResult Function(Workout workout)? addWorkout,
     TResult Function(Workout workout)? updateWorkout,
-    TResult Function(int id)? deleteWorkout,
+    TResult Function(Workout workout)? deleteWorkout,
     required TResult orElse(),
   }) {
     if (loadWorkouts != null) {
-      return loadWorkouts();
+      return loadWorkouts(dateTime);
     }
     return orElse();
   }
@@ -203,7 +231,15 @@ class _$LoadWorkoutsImpl implements LoadWorkouts {
 }
 
 abstract class LoadWorkouts implements WorkoutEvent {
-  const factory LoadWorkouts() = _$LoadWorkoutsImpl;
+  const factory LoadWorkouts(final DateTime dateTime) = _$LoadWorkoutsImpl;
+
+  DateTime get dateTime;
+
+  /// Create a copy of WorkoutEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadWorkoutsImplCopyWith<_$LoadWorkoutsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -274,10 +310,10 @@ class _$AddWorkoutImpl implements AddWorkout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadWorkouts,
+    required TResult Function(DateTime dateTime) loadWorkouts,
     required TResult Function(Workout workout) addWorkout,
     required TResult Function(Workout workout) updateWorkout,
-    required TResult Function(int id) deleteWorkout,
+    required TResult Function(Workout workout) deleteWorkout,
   }) {
     return addWorkout(workout);
   }
@@ -285,10 +321,10 @@ class _$AddWorkoutImpl implements AddWorkout {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadWorkouts,
+    TResult? Function(DateTime dateTime)? loadWorkouts,
     TResult? Function(Workout workout)? addWorkout,
     TResult? Function(Workout workout)? updateWorkout,
-    TResult? Function(int id)? deleteWorkout,
+    TResult? Function(Workout workout)? deleteWorkout,
   }) {
     return addWorkout?.call(workout);
   }
@@ -296,10 +332,10 @@ class _$AddWorkoutImpl implements AddWorkout {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadWorkouts,
+    TResult Function(DateTime dateTime)? loadWorkouts,
     TResult Function(Workout workout)? addWorkout,
     TResult Function(Workout workout)? updateWorkout,
-    TResult Function(int id)? deleteWorkout,
+    TResult Function(Workout workout)? deleteWorkout,
     required TResult orElse(),
   }) {
     if (addWorkout != null) {
@@ -426,10 +462,10 @@ class _$UpdateWorkoutImpl implements UpdateWorkout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadWorkouts,
+    required TResult Function(DateTime dateTime) loadWorkouts,
     required TResult Function(Workout workout) addWorkout,
     required TResult Function(Workout workout) updateWorkout,
-    required TResult Function(int id) deleteWorkout,
+    required TResult Function(Workout workout) deleteWorkout,
   }) {
     return updateWorkout(workout);
   }
@@ -437,10 +473,10 @@ class _$UpdateWorkoutImpl implements UpdateWorkout {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadWorkouts,
+    TResult? Function(DateTime dateTime)? loadWorkouts,
     TResult? Function(Workout workout)? addWorkout,
     TResult? Function(Workout workout)? updateWorkout,
-    TResult? Function(int id)? deleteWorkout,
+    TResult? Function(Workout workout)? deleteWorkout,
   }) {
     return updateWorkout?.call(workout);
   }
@@ -448,10 +484,10 @@ class _$UpdateWorkoutImpl implements UpdateWorkout {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadWorkouts,
+    TResult Function(DateTime dateTime)? loadWorkouts,
     TResult Function(Workout workout)? addWorkout,
     TResult Function(Workout workout)? updateWorkout,
-    TResult Function(int id)? deleteWorkout,
+    TResult Function(Workout workout)? deleteWorkout,
     required TResult orElse(),
   }) {
     if (updateWorkout != null) {
@@ -516,7 +552,7 @@ abstract class _$$DeleteWorkoutImplCopyWith<$Res> {
           _$DeleteWorkoutImpl value, $Res Function(_$DeleteWorkoutImpl) then) =
       __$$DeleteWorkoutImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int id});
+  $Res call({Workout workout});
 }
 
 /// @nodoc
@@ -532,13 +568,13 @@ class __$$DeleteWorkoutImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? workout = null,
   }) {
     return _then(_$DeleteWorkoutImpl(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == workout
+          ? _value.workout
+          : workout // ignore: cast_nullable_to_non_nullable
+              as Workout,
     ));
   }
 }
@@ -546,14 +582,14 @@ class __$$DeleteWorkoutImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DeleteWorkoutImpl implements DeleteWorkout {
-  const _$DeleteWorkoutImpl(this.id);
+  const _$DeleteWorkoutImpl(this.workout);
 
   @override
-  final int id;
+  final Workout workout;
 
   @override
   String toString() {
-    return 'WorkoutEvent.deleteWorkout(id: $id)';
+    return 'WorkoutEvent.deleteWorkout(workout: $workout)';
   }
 
   @override
@@ -561,11 +597,11 @@ class _$DeleteWorkoutImpl implements DeleteWorkout {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeleteWorkoutImpl &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.workout, workout) || other.workout == workout));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, workout);
 
   /// Create a copy of WorkoutEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -578,36 +614,36 @@ class _$DeleteWorkoutImpl implements DeleteWorkout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadWorkouts,
+    required TResult Function(DateTime dateTime) loadWorkouts,
     required TResult Function(Workout workout) addWorkout,
     required TResult Function(Workout workout) updateWorkout,
-    required TResult Function(int id) deleteWorkout,
+    required TResult Function(Workout workout) deleteWorkout,
   }) {
-    return deleteWorkout(id);
+    return deleteWorkout(workout);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadWorkouts,
+    TResult? Function(DateTime dateTime)? loadWorkouts,
     TResult? Function(Workout workout)? addWorkout,
     TResult? Function(Workout workout)? updateWorkout,
-    TResult? Function(int id)? deleteWorkout,
+    TResult? Function(Workout workout)? deleteWorkout,
   }) {
-    return deleteWorkout?.call(id);
+    return deleteWorkout?.call(workout);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadWorkouts,
+    TResult Function(DateTime dateTime)? loadWorkouts,
     TResult Function(Workout workout)? addWorkout,
     TResult Function(Workout workout)? updateWorkout,
-    TResult Function(int id)? deleteWorkout,
+    TResult Function(Workout workout)? deleteWorkout,
     required TResult orElse(),
   }) {
     if (deleteWorkout != null) {
-      return deleteWorkout(id);
+      return deleteWorkout(workout);
     }
     return orElse();
   }
@@ -651,9 +687,9 @@ class _$DeleteWorkoutImpl implements DeleteWorkout {
 }
 
 abstract class DeleteWorkout implements WorkoutEvent {
-  const factory DeleteWorkout(final int id) = _$DeleteWorkoutImpl;
+  const factory DeleteWorkout(final Workout workout) = _$DeleteWorkoutImpl;
 
-  int get id;
+  Workout get workout;
 
   /// Create a copy of WorkoutEvent
   /// with the given fields replaced by the non-null parameter values.

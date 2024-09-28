@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:workout_tracker_magicai/blocs/workout/workout_bloc.dart';
 import 'package:workout_tracker_magicai/blocs/workout_set/workout_set_bloc.dart';
 import 'package:workout_tracker_magicai/models/workout_model.dart';
 import 'package:workout_tracker_magicai/models/workout_set_model.dart';
+import 'package:workout_tracker_magicai/screens/common_widgets/finish_button.dart';
 import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_set_card.dart';
 
 import '../../di/di_config.dart';
@@ -14,8 +16,10 @@ import '../../repositories/workout_repository.dart';
 @RoutePage()
 class WorkoutDetailScreen extends StatefulWidget {
   final int workoutId;
+  final DateTime dateTime;
 
-  const WorkoutDetailScreen({super.key, required this.workoutId});
+  const WorkoutDetailScreen(
+      {super.key, required this.workoutId, required this.dateTime});
 
   @override
   _WorkoutDetailScreenState createState() => _WorkoutDetailScreenState();
@@ -42,7 +46,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
     return BlocProvider(
       create: (context) => WorkoutSetBloc(
           workoutRepository: getIt<WorkoutRepository>(),
-          workoutId: widget.workoutId)
+          workoutId: widget.workoutId,
+          workoutDate: widget.dateTime)
         ..add(LoadSetsForWorkout(widget.workoutId)),
       child: BlocBuilder<WorkoutSetBloc, WorkoutSetState>(
         builder: (context, state) {
@@ -54,7 +59,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
 
           if (state.errorMessage != null) {
             return Center(
-              child: Text('Error loading data!'),
+              child: Text('Error loading data! '),
             );
           }
 
@@ -67,7 +72,28 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
 
   AppBar _buildAppBar(BuildContext context, Workout workout) {
     return AppBar(
-      title: Text('Workout Details'),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            child: Text(
+              'Workout Details',
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Flexible(
+            child: Text(
+              DateFormat.yMMMd().format(workout.date),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.white70),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
       actions: [
         IconButton(
             onPressed: () => _onAddSetPressed(context, workout),
@@ -78,7 +104,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
 
   Widget _buildContentWidget(BuildContext context, Workout workout) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: _buildAppBar(context, workout),
       body: SafeArea(
         child: Padding(
@@ -89,10 +114,9 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               Expanded(
                 child: ListView.builder(
                   itemCount: workout.sets.length,
-                  reverse: true,
                   itemBuilder: (context, index) {
                     return WorkoutSetCard(
-                      workoutSet: workout.sets[index],
+                      workoutSet: workout.sets[workout.sets.length - 1 - index],
                       exercises: exercises,
                       onRemove: () =>
                           _removeSetPressed(context, index, workout),
@@ -112,26 +136,10 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
   Widget _buildActionButtons(BuildContext context, Workout workout) {
     return Container(
       width: double.infinity,
-      color: Colors.transparent,
       height: 80, // F
       padding: EdgeInsets.symmetric(
           vertical: 16.0, horizontal: 16.0), // ull width button
-      child: TextButton(
-        onPressed: () => _onFinishPressed(context, workout),
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.green, // Red background color
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0), // 4px rounded corners
-          ),
-        ),
-        child: Text(
-          'Finish',
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .copyWith(color: Colors.white), // Text size
-        ),
-      ),
+      child: FinishButton(onPressed: () => _onFinishPressed(context, workout)),
     );
   }
 

@@ -10,7 +10,8 @@ class MockWorkoutRepository extends Mock implements WorkoutRepository {
   int _workoutSetIdCounter = 1;
 
   @override
-  Future<Workout> createWorkout(List<WorkoutSet> sets) async {
+  Future<Workout> createWorkout(List<WorkoutSet> sets,
+      {DateTime? dateTime}) async {
     final workout = Workout(id: _workoutIdCounter++, date: DateTime.now());
     for (var set in sets) {
       set.id = _workoutSetIdCounter++;
@@ -23,7 +24,7 @@ class MockWorkoutRepository extends Mock implements WorkoutRepository {
   }
 
   @override
-  Future<List<Workout>> getAllWorkouts() async {
+  Future<List<Workout>> getAllWorkouts(DateTime date) async {
     return _workouts.values.toList();
   }
 

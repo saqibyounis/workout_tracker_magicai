@@ -25,7 +25,8 @@ class App extends StatelessWidget {
             create: (context) => AppBloc(),
           ),
           BlocProvider<WorkoutBloc>(
-            create: (context) => WorkoutBloc()..add(LoadWorkouts()),
+            create: (context) =>
+                WorkoutBloc()..add(LoadWorkouts(DateTime.now())),
           ),
         ],
         child: BlocBuilder<AppBloc, AppState>(

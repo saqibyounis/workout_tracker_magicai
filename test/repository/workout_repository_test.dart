@@ -32,7 +32,7 @@ void main() {
       await repository.createWorkout(
           [WorkoutSet(exercise: 'Bench Press', weight: 80, repetitions: 8)]);
 
-      final workouts = await repository.getAllWorkouts();
+      final workouts = await repository.getAllWorkouts(DateTime.now());
 
       expect(workouts.length, equals(2));
       expect(workouts[0].id, equals(1));
@@ -51,7 +51,7 @@ void main() {
       expect(repository.getWorkoutSet(1), isNull);
       expect(repository.getWorkoutSet(2), isNull);
 
-      final remainingWorkouts = await repository.getAllWorkouts();
+      final remainingWorkouts = await repository.getAllWorkouts(DateTime.now());
       expect(remainingWorkouts.isEmpty, isTrue);
     });
 
@@ -93,7 +93,7 @@ void main() {
 
       repository.reset();
 
-      final workouts = await repository.getAllWorkouts();
+      final workouts = await repository.getAllWorkouts(DateTime.now());
       expect(workouts.isEmpty, isTrue);
 
       // Check that IDs are reset
