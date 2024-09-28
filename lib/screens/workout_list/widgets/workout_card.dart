@@ -1,13 +1,22 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:workout_tracker_magicai/models/workout_model.dart';
-import 'package:workout_tracker_magicai/routes/app_router.gr.dart';
+import 'package:workout_tracker_magicai/screens/common_widgets/finish_button.dart';
+import 'package:workout_tracker_magicai/screens/common_widgets/remove_button.dart';
 
 class WorkoutCard extends StatelessWidget {
   final Workout workout;
+  final Function(Workout workout) onRemovePressed;
+  final Function(Workout workout) onFinishPressed;
+  final Function(Workout workout) onTap;
 
-  const WorkoutCard({Key? key, required this.workout}) : super(key: key);
+  const WorkoutCard(
+      {Key? key,
+      required this.workout,
+      required this.onRemovePressed,
+      required this.onFinishPressed,
+      required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +27,7 @@ class WorkoutCard extends StatelessWidget {
       elevation: 0.2,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
-        onTap: () =>
-            context.router.push(WorkoutDetailRoute(workoutId: workout.id)),
+        onTap: () => onTap(workout),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -31,17 +39,19 @@ class WorkoutCard extends StatelessWidget {
                 children: [
                   Text(
                     'Workout on $dateFormat',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
                   // Status indicator: Finished or In Progress
                   Chip(
                     label: Text(
                       isFinished ? 'Finished' : 'In Progress',
-                      style: TextStyle(
-                        color: isFinished ? Colors.green : Colors.orange,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: isFinished ? Colors.green : Colors.orange,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     backgroundColor:
                         isFinished ? Colors.green[50] : Colors.orange[50],
@@ -52,7 +62,7 @@ class WorkoutCard extends StatelessWidget {
               // Number of sets in the workout
               Text(
                 'Total Sets: ${workout.sets.length}',
-                style: const TextStyle(fontSize: 16),
+                style: Theme.of(context).textTheme.labelLarge!,
               ),
               const SizedBox(height: 8),
               // Overview of first few sets (if any)
@@ -61,6 +71,23 @@ class WorkoutCard extends StatelessWidget {
                       '${set.exercise} - ${set.weight}kg, ${set.repetitions} reps',
                       style: const TextStyle(fontSize: 14),
                     )),
+              SizedBox(
+                height: 8.0,
+              ),
+              Row(
+                children: [
+                  RemoveButton(() => onRemovePressed(workout)),
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  if (!isFinished)
+                    Expanded(
+                        child: FinishButton(
+                      onPressed: () => onFinishPressed(workout),
+                      fontSize: 12,
+                    ))
+                ],
+              )
             ],
           ),
         ),

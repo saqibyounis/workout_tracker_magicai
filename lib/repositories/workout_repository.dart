@@ -20,11 +20,12 @@ class WorkoutRepository {
     return _store!;
   }
 
-  Future<Workout> createWorkout(List<WorkoutSet> sets) async {
+  Future<Workout> createWorkout(List<WorkoutSet> sets,
+      {DateTime? dateTime}) async {
     final store = await _getStore(); // Use the singleton store instance
     final workoutBox = store.box<Workout>();
 
-    final workout = Workout(date: DateTime.now());
+    final workout = Workout(date: dateTime ?? DateTime.now());
     workoutBox.put(workout);
 
     for (var set in sets) {
@@ -36,10 +37,16 @@ class WorkoutRepository {
     return workout;
   }
 
-  Future<List<Workout>> getAllWorkouts() async {
+  Future<List<Workout>> getAllWorkouts(DateTime date) async {
     final store = await _getStore(); // Use the singleton store instance
     final workoutBox = store.box<Workout>();
-    return workoutBox.getAll();
+    final allWorkouts = workoutBox.getAll();
+
+    return allWorkouts.reversed.where((workout) {
+      return workout.date.year == date.year &&
+          workout.date.month == date.month &&
+          workout.date.day == date.day;
+    }).toList();
   }
 
   Future<void> deleteWorkout(int workoutId) async {
@@ -67,13 +74,13 @@ class WorkoutRepository {
     setBox.put(set);
   }
 
-  Future<Workout?> getWorkoutById(int workoutId) async {
+  Future<Workout?> getWorkoutById(int workoutId, {DateTime? dateTime}) async {
     final store = await _getStore();
     if (workoutId != -1) {
       final workoutBox = store.box<Workout>();
       return workoutBox.get(workoutId);
     } else {
-      return await createWorkout([]);
+      return await createWorkout([], dateTime: dateTime);
     }
   }
 

@@ -9,7 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:flutter/material.dart' as _i4;
+import 'package:flutter/cupertino.dart' as _i4;
 import 'package:workout_tracker_magicai/screens/workout_detail/workout_detail_screen.dart'
     as _i2;
 import 'package:workout_tracker_magicai/screens/workout_list/workout_list_screen.dart'
@@ -40,12 +40,14 @@ class WorkoutDetailRoute extends _i3.PageRouteInfo<WorkoutDetailRouteArgs> {
   WorkoutDetailRoute({
     _i4.Key? key,
     required int workoutId,
+    required DateTime dateTime,
     List<_i3.PageRouteInfo>? children,
   }) : super(
           WorkoutDetailRoute.name,
           args: WorkoutDetailRouteArgs(
             key: key,
             workoutId: workoutId,
+            dateTime: dateTime,
           ),
           initialChildren: children,
         );
@@ -59,6 +61,7 @@ class WorkoutDetailRoute extends _i3.PageRouteInfo<WorkoutDetailRouteArgs> {
       return _i2.WorkoutDetailScreen(
         key: args.key,
         workoutId: args.workoutId,
+        dateTime: args.dateTime,
       );
     },
   );
@@ -68,14 +71,17 @@ class WorkoutDetailRouteArgs {
   const WorkoutDetailRouteArgs({
     this.key,
     required this.workoutId,
+    required this.dateTime,
   });
 
   final _i4.Key? key;
 
   final int workoutId;
 
+  final DateTime dateTime;
+
   @override
   String toString() {
-    return 'WorkoutDetailRouteArgs{key: $key, workoutId: $workoutId}';
+    return 'WorkoutDetailRouteArgs{key: $key, workoutId: $workoutId, dateTime: $dateTime}';
   }
 }

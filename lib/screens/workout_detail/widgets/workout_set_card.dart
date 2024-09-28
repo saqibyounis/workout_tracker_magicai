@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_tracker_magicai/blocs/workout_set/workout_set_bloc.dart';
 import 'package:workout_tracker_magicai/models/workout_set_model.dart';
+import 'package:workout_tracker_magicai/screens/common_widgets/remove_button.dart';
 
 class WorkoutSetCard extends StatelessWidget {
   final WorkoutSet workoutSet;
@@ -60,23 +61,7 @@ class WorkoutSetCard extends StatelessWidget {
               },
             ),
             SizedBox(height: 10),
-            TextButton(
-              onPressed: onRemove,
-              child: Text(
-                'Remove',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: Colors.white),
-              ),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.red, // Red background color
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(8.0), // 4px rounded corners
-                ),
-              ),
-            ),
+            RemoveButton(onRemove)
           ],
         ),
       ),

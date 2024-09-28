@@ -12,8 +12,12 @@ part 'workout_set_state.dart';
 class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
   final WorkoutRepository workoutRepository;
   final int workoutId;
+  final DateTime workoutDate;
 
-  WorkoutSetBloc({required this.workoutRepository, required this.workoutId})
+  WorkoutSetBloc(
+      {required this.workoutDate,
+      required this.workoutRepository,
+      required this.workoutId})
       : super(const WorkoutSetState(isLoading: true)) {
     on<AddSet>(_onAddSet);
     on<RemoveSet>(_onRemoveSet);
@@ -25,7 +29,8 @@ class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
   Future<void> _onLoadSetsForWorkout(
       LoadSetsForWorkout event, Emitter<WorkoutSetState> emit) async {
     try {
-      final workout = await workoutRepository.getWorkoutById(event.workoutId);
+      final workout = await workoutRepository.getWorkoutById(event.workoutId,
+          dateTime: workoutDate);
       if (workout != null) {
         emit(state.copyWith(isLoading: false, workout: workout));
       } else {
@@ -43,10 +48,11 @@ class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
           await workoutRepository.getWorkoutById(event.workoutId);
       if (workout != null) {
         event.workoutSet.workout.target = workout;
-        workout.sets.add(event.workoutSet);
+        workout.sets.insert(0, event.workoutSet);
         await workoutRepository.updateWorkout(workout!);
         workout = await workoutRepository.getWorkoutById(event.workoutId);
-        emit(state.copyWith(workout: workout));
+
+        emit(state.copyWith(workout: workout?..sets.reversed.toList()));
       } else {
         emit(state.copyWith(errorMessage: 'Workout not found'));
       }
