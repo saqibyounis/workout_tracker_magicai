@@ -52,6 +52,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
+      cardTheme: CardTheme(color: Colors.blue[100]),
       bottomSheetTheme: BottomSheetThemeData(
           elevation: 2.0, backgroundColor: Colors.transparent),
     );
@@ -109,6 +110,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ), // AppBar title text
       ),
+      cardTheme: CardTheme(color: Colors.blue),
       bottomSheetTheme:
           BottomSheetThemeData(backgroundColor: Colors.transparent),
     );

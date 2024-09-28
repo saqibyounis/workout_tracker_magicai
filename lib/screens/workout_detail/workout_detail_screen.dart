@@ -117,12 +117,12 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
       padding: EdgeInsets.symmetric(
           vertical: 16.0, horizontal: 16.0), // ull width button
       child: TextButton(
-        onPressed: () {
-          // Action on button press
-          print('Workout finished');
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green,
+        onPressed: () => _onFinishPressed(context, workout),
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.green, // Red background color
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0), // 4px rounded corners
+          ),
         ),
         child: Text(
           'Finish',
