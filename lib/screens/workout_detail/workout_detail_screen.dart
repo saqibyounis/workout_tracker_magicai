@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_tracker_magicai/blocs/workout/workout_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:workout_tracker_magicai/screens/workout_detail/workout_set_card.
 import '../../di/di_config.dart';
 import '../../repositories/workout_repository.dart';
 
+@RoutePage()
 class WorkoutDetailScreen extends StatefulWidget {
   final int workoutId;
 

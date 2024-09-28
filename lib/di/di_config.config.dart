@@ -14,6 +14,7 @@ import 'package:workout_tracker_magicai/blocs/app/app_bloc.dart' as _i445;
 import 'package:workout_tracker_magicai/blocs/bloc_observer.dart' as _i241;
 import 'package:workout_tracker_magicai/repositories/workout_repository.dart'
     as _i279;
+import 'package:workout_tracker_magicai/routes/app_router.dart' as _i1060;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -30,6 +31,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i445.AppBloc>(() => _i445.AppBloc());
     gh.factory<_i241.WorkoutAppBlocObserver>(
         () => _i241.WorkoutAppBlocObserver());
+    gh.factory<_i1060.AppRouter>(() => _i1060.AppRouter());
     return this;
   }
 }

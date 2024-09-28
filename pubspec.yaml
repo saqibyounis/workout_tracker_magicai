@@ -26,6 +26,8 @@ dependencies:
   intl: any
   path_provider: ^2.0.10
   path: ^1.8.0
+  auto_route: ^9.2.2
+
 
   # Form validation
   flutter_form_builder: ^9.4.1
@@ -50,9 +52,11 @@ dev_dependencies:
   mocktail: ^1.0.4
   mockito: ^5.0.0
 
-
   # For DI
   injectable_generator: ^2.1.3
+
+  #For Autoroute
+  auto_route_generator: ^9.0.0
 
 
 flutter:
