@@ -58,7 +58,7 @@ class WorkoutRepository {
   Future<void> updateWorkout(Workout workout) async {
     final store = await _getStore();
     final workoutBox = store.box<Workout>();
-    workoutBox.put(workout);
+    await workoutBox.putAsync(workout);
   }
 
   Future<void> updateWorkoutSet(WorkoutSet set) async {

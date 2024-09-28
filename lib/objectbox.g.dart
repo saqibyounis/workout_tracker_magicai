@@ -23,7 +23,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
       id: const obx_int.IdUid(1, 2051159532163446488),
       name: 'Workout',
-      lastPropertyId: const obx_int.IdUid(2, 29986876474804752),
+      lastPropertyId: const obx_int.IdUid(5, 1266834510071770086),
       flags: 0,
       properties: <obx_int.ModelProperty>[
         obx_int.ModelProperty(
@@ -35,6 +35,11 @@ final _entities = <obx_int.ModelEntity>[
             id: const obx_int.IdUid(2, 29986876474804752),
             name: 'date',
             type: 10,
+            flags: 0),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(5, 1266834510071770086),
+            name: 'status',
+            type: 6,
             flags: 0)
       ],
       relations: <obx_int.ModelRelation>[],
@@ -121,7 +126,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
       lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [],
       retiredIndexUids: const [],
-      retiredPropertyUids: const [],
+      retiredPropertyUids: const [9142339568576214206, 8175646225003391059],
       retiredRelationUids: const [],
       modelVersion: 5,
       modelVersionParserMinimum: 5,
@@ -140,9 +145,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (Workout object, fb.Builder fbb) {
-          fbb.startTable(3);
+          fbb.startTable(6);
           fbb.addInt64(0, object.id);
           fbb.addInt64(1, object.date.millisecondsSinceEpoch);
+          fbb.addInt64(4, object.status);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -153,7 +159,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final dateParam = DateTime.fromMillisecondsSinceEpoch(
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 6, 0));
-          final object = Workout(id: idParam, date: dateParam);
+          final statusParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+          final object =
+              Workout(id: idParam, date: dateParam, status: statusParam);
           obx_int.InternalToManyAccess.setRelInfo<Workout>(
               object.sets,
               store,
@@ -215,6 +224,10 @@ class Workout_ {
   /// See [Workout.date].
   static final date =
       obx.QueryDateProperty<Workout>(_entities[0].properties[1]);
+
+  /// See [Workout.status].
+  static final status =
+      obx.QueryIntegerProperty<Workout>(_entities[0].properties[2]);
 
   /// see [Workout.sets]
   static final sets =
