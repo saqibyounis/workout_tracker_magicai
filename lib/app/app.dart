@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_tracker_magicai/screens/workout_detail/workout_detail_screen.dart';
 
 import '../blocs/app/app_bloc.dart';
 import '../di/di_config.dart';
@@ -30,7 +31,7 @@ class App extends StatelessWidget {
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: state.themeMode,
-              home: const Text("Workout Tracker"),
+              home: WorkoutDetailScreen(workoutId: 3),
             );
           },
         ),

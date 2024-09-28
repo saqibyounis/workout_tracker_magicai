@@ -2,6 +2,11 @@ import 'package:objectbox/objectbox.dart';
 
 import 'workout_set_model.dart';
 
+enum WorkoutStatus {
+  inProgress,
+  finished,
+}
+
 @Entity()
 class Workout {
   @Id()
@@ -13,8 +18,13 @@ class Workout {
   @Backlink()
   final ToMany<WorkoutSet> sets = ToMany<WorkoutSet>();
 
-  Workout({
-    this.id = 0,
-    required this.date,
-  });
+  int _status = WorkoutStatus.inProgress.index;
+
+  Workout({this.id = 0, required this.date, status = WorkoutStatus.inProgress});
+
+  WorkoutStatus get status => WorkoutStatus.values[_status];
+
+  set status(WorkoutStatus status) {
+    _status = status.index;
+  }
 }
