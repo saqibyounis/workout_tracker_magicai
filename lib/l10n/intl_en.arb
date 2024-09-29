@@ -1,0 +1,17 @@
+{
+  "title": "Workout Tracker",
+  "no_workout_found": "No workout found!",
+  "error": "Error",
+  "finish": "Finish",
+  "remove": "Remove",
+  "workout_details": "Workout Details",
+  "weight": "Weight",
+  "repetitions": "Repetitions",
+  "workout_on": "Workout on",
+  "total_sets": "Total Sets:",
+  "reps": "reps",
+  "in_progress": "In Progress",
+  "finished": "Finished",
+  "select_exercise": "Select Exercise"
+
+}

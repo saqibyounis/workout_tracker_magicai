@@ -1,0 +1,17 @@
+{
+  "title": "Traciwr Ymarfer Corff",
+  "no_workout_found": "Dim ymarfer corff wedi'i ddarganfod!",
+  "error": "Gwall",
+  "finish": "Gorffen",
+  "remove": "Tynnu",
+  "workout_details": "Manylion Ymarfer Corff",
+  "weight": "pwysau",
+  "repetitions": "Ailadroddiadau",
+  "workout_on": "Ymarfer Corff ar",
+  "total_sets": "Cyfanswm y Setiau:",
+  "reps": "ailadroddiadau",
+  "in_progress": "Ar y Gweill",
+  "finished": "Wedi Gorffen",
+  "select_exercise": "Dewis Ymarfer Corff"
+
+}

@@ -8,6 +8,8 @@ import 'package:workout_tracker_magicai/models/workout_model.dart';
 import 'package:workout_tracker_magicai/routes/app_router.gr.dart';
 import 'package:workout_tracker_magicai/screens/workout_list/widgets/workout_card.dart';
 
+import '../../generated/l10n.dart';
+
 @RoutePage()
 class WorkOutListScreen extends StatefulWidget {
   @override
@@ -27,8 +29,9 @@ class _WorkOutListScreenState extends State<WorkOutListScreen> {
           return state.maybeWhen(
               loading: () => const Center(child: CircularProgressIndicator()),
               loaded: (workouts) => _buildContentWidget(context, workouts),
-              error: (error) => Center(child: Text('Error: $error')),
-              orElse: () => Center(child: Text('Error!')));
+              error: (error) =>
+                  Center(child: Text('${S.of(context).error}: $error')),
+              orElse: () => Center(child: Text(S.of(context).error)));
         },
       ),
     );
@@ -36,8 +39,20 @@ class _WorkOutListScreenState extends State<WorkOutListScreen> {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      title: Text('Workouts'),
+      title: Text(
+        S.of(context).title,
+      ),
       actions: [
+        IconButton(
+          icon: Text(
+            context.read<AppBloc>().state.language.toUpperCase(),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(color: Colors.white),
+          ),
+          onPressed: () => _switchLanguage(context),
+        ),
         IconButton(
           icon: Icon(CupertinoIcons.calendar_today),
           onPressed: () => _pickDate(context),
@@ -76,7 +91,7 @@ class _WorkOutListScreenState extends State<WorkOutListScreen> {
   Widget _buildContentWidget(BuildContext context, List<Workout> workouts) {
     if (workouts.isEmpty) {
       return Center(
-        child: Text('No workout found!'),
+        child: Text(S.of(context).no_workout_found),
       );
     }
     return ListView.builder(
@@ -91,6 +106,14 @@ class _WorkOutListScreenState extends State<WorkOutListScreen> {
         );
       },
     );
+  }
+
+  void _switchLanguage(BuildContext context) {
+    if (context.read<AppBloc>().state.language == 'en') {
+      context.read<AppBloc>().add(ChangeLanguage('cy'));
+    } else {
+      context.read<AppBloc>().add(ChangeLanguage('en'));
+    }
   }
 
   void _pickDate(BuildContext context) async {

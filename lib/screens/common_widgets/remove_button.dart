@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 class RemoveButton extends StatelessWidget {
   final Function() onPressed;
 
@@ -10,7 +12,7 @@ class RemoveButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Text(
-        'Remove',
+        S.of(context).remove,
         style: Theme.of(context)
             .textTheme
             .headlineMedium!

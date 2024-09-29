@@ -4,6 +4,8 @@ import 'package:workout_tracker_magicai/blocs/workout_set/workout_set_bloc.dart'
 import 'package:workout_tracker_magicai/models/workout_set_model.dart';
 import 'package:workout_tracker_magicai/screens/common_widgets/remove_button.dart';
 
+import '../../../generated/l10n.dart';
+
 class WorkoutSetCard extends StatelessWidget {
   final WorkoutSet workoutSet;
   final int workoutId;
@@ -26,7 +28,7 @@ class WorkoutSetCard extends StatelessWidget {
           children: [
             DropdownButtonFormField<String>(
               value: workoutSet.exercise,
-              hint: Text('Select Exercise'),
+              hint: Text(S.of(context).select_exercise),
               items: exercises.map((exercise) {
                 return DropdownMenuItem(
                   value: exercise,
@@ -40,7 +42,8 @@ class WorkoutSetCard extends StatelessWidget {
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(labelText: 'Weight (kg)'),
+              decoration:
+                  InputDecoration(labelText: '${S.of(context).weight} (kg)'),
               keyboardType: TextInputType.number,
               controller: TextEditingController()
                 ..text = workoutSet.weight.toString(),
@@ -51,7 +54,7 @@ class WorkoutSetCard extends StatelessWidget {
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(labelText: 'Repetitions'),
+              decoration: InputDecoration(labelText: S.of(context).repetitions),
               keyboardType: TextInputType.number,
               controller: TextEditingController()
                 ..text = workoutSet.repetitions.toString(),
