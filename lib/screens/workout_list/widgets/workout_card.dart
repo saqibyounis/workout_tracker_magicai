@@ -67,7 +67,7 @@ class WorkoutCard extends StatelessWidget {
               const SizedBox(height: 8),
               // Number of sets in the workout
               Text(
-                '${S.of(context).total_sets}: ${workout.sets.length}',
+                '${S.of(context).total_sets} ${workout.sets.length}',
                 style: Theme.of(context).textTheme.labelLarge!,
               ),
               const SizedBox(height: 8),

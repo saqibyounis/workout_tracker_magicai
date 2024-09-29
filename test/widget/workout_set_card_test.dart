@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:workout_tracker_magicai/blocs/workout_set/workout_set_bloc.dart';
 import 'package:workout_tracker_magicai/generated/l10n.dart';
 import 'package:workout_tracker_magicai/models/workout_set_model.dart';
-import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_card.dart';
+import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_set_card.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
