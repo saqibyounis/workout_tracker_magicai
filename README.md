@@ -34,7 +34,7 @@ To run this app, ensure you have:
 2. **Navigate to the project directory**:
 
    ```bash
-   cd workout-tracker
+   cd workout_tracker_magicai
    ```
 
 3. **Install dependencies**:
