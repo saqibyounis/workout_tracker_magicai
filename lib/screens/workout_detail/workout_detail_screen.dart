@@ -8,7 +8,7 @@ import 'package:workout_tracker_magicai/blocs/workout_set/workout_set_bloc.dart'
 import 'package:workout_tracker_magicai/models/workout_model.dart';
 import 'package:workout_tracker_magicai/models/workout_set_model.dart';
 import 'package:workout_tracker_magicai/screens/common_widgets/finish_button.dart';
-import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_set_card.dart';
+import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_card.dart';
 
 import '../../di/di_config.dart';
 import '../../generated/l10n.dart';
