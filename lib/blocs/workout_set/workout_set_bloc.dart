@@ -49,6 +49,7 @@ class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
       if (workout != null) {
         event.workoutSet.workout.target = workout;
         workout.sets.insert(0, event.workoutSet);
+        workout.setstatus(WorkoutStatus.inProgress);
         await workoutRepository.updateWorkout(workout!);
         workout = await workoutRepository.getWorkoutById(event.workoutId);
 

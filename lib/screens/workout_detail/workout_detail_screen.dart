@@ -11,6 +11,7 @@ import 'package:workout_tracker_magicai/screens/common_widgets/finish_button.dar
 import 'package:workout_tracker_magicai/screens/workout_detail/widgets/workout_set_card.dart';
 
 import '../../di/di_config.dart';
+import '../../generated/l10n.dart';
 import '../../repositories/workout_repository.dart';
 
 @RoutePage()
@@ -59,7 +60,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
 
           if (state.errorMessage != null) {
             return Center(
-              child: Text('Error loading data! '),
+              child: Text(S.of(context).no_workout_found),
             );
           }
 
@@ -78,7 +79,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
         children: [
           Flexible(
             child: Text(
-              'Workout Details',
+              S.of(context).workout_details,
               overflow: TextOverflow.ellipsis,
             ),
           ),

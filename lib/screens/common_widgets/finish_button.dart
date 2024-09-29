@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 class FinishButton extends StatelessWidget {
   final Function() onPressed;
   final double fontSize;
@@ -16,7 +18,7 @@ class FinishButton extends StatelessWidget {
         ),
       ),
       child: Text(
-        'Finish',
+        S.of(context).finish,
         style: Theme.of(context)
             .textTheme
             .headlineMedium!
