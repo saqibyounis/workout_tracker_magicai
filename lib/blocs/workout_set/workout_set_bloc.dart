@@ -86,9 +86,9 @@ class WorkoutSetBloc extends Bloc<WorkoutSetEvent, WorkoutSetState> {
       UpdateSet event, Emitter<WorkoutSetState> emit) async {
     try {
       await workoutRepository.updateWorkoutSet(event.workoutSet);
-      Workout? workout = await workoutRepository.getWorkoutById(workoutId);
+      Workout? workout =
+          await workoutRepository.getWorkoutById(event.workoutId);
       if (workout != null) {
-        workout.setstatus(WorkoutStatus.inProgress);
         workoutRepository.updateWorkout(workout);
       } else {
         emit(state.copyWith(errorMessage: 'Workout not found'));
